@@ -6,7 +6,7 @@ use App\Mail\MessageReceived;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
-class MessagesContnroller extends Controller
+class MessageContnroller extends Controller
 {
     public function store(){
 
@@ -25,6 +25,6 @@ class MessagesContnroller extends Controller
         Mail::to('fernavarro2607@gmail.com')->queue(new MessageReceived($msg));
         //queue, se hace en segundo plano
 
-        return 'Mensaje enviado';
+        return back()->with('status', 'Recibimos tu mensaje, te responderemos pronto.');
     }
 }

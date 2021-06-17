@@ -5,7 +5,9 @@
 @section('content')
     <h1>{{ __('Contact') }}</h1>
 
-    <form method="POST" action="{{ route('contact') }}">
+    @include('partials.sessions-status')
+
+    <form method="POST" action="{{ route('messages.store') }}">
         {{-- Agrega un campo oculto, para proteccion --}}
         @csrf 
         <input name="name" placeholder="Nombre" value={{ old('name') }}> <br>
