@@ -2,21 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\MessageReceived;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class MessagesContnroller extends Controller
 {
     public function store(){
 
-        $name = request('name');
-        $email = request('email');
-        $content = request('content');
-        $subject = request('subject');
-
         //tambien se puede usar como parametro Request request
         //y $name = request->get('name');
 
-        request()->validate([
+        $msg = request()->validate([
             'name' => 'required',
             'email' => 'required|email',
             'subject' => 'required',
@@ -25,6 +22,9 @@ class MessagesContnroller extends Controller
             'name.required' => __('I need your name')
         ]);
 
-        return 'Datos validados';
+        Mail::to('fernavarro2607@gmail.com')->queue(new MessageReceived($msg));
+        //queue, se hace en segundo plano
+
+        return 'Mensaje enviado';
     }
 }
