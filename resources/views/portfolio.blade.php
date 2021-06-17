@@ -3,15 +3,18 @@
 @section('title','Portfolio')
 
 @section('content')
-    <h1>Portfolio</h1>
+    <h1>{{__('Portfolio')}}</h1>
 
-    <ul>        
-        @forelse ($portfolio as $portfolioItem)
-            <li>{{$portfolioItem['title']}} </li>
-
-        @empty
+    <ul>       
+        @isset($portfolio)
+            @forelse ($portfolio as $portfolioItem)
+                <li>{{$portfolioItem['title']}} </li>
+            @empty
+                <li>No hay proyectos para mostrar.</li>
+            @endforelse
+        @else
             <li>No hay proyectos para mostrar.</li>
-        @endforelse
+        @endisset 
         
     </ul>
 @endsection
